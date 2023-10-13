@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/LayoutSach"
+        android:padding="5sp"
+        android:orientation="vertical"
+        android:background="#C1F485"
+        android:layout_margin="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtTieuDe"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:text="THÊM SÁCH MỚI"
+            android:textColor="#231312"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+<!--        <EditText-->
+<!--            android:id="@+id/edtLoaiSach"-->
+<!--            android:layout_marginBottom="10sp"-->
+<!--            android:background="@drawable/custom_edittext"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Nhập loại sách"-->
+<!--            android:minHeight="48dp" />-->
+        <Spinner
+            android:id="@+id/spnLoaiSach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="5dp"/>
+        <EditText
+            android:id="@+id/edtTenSach"
+            android:layout_marginBottom="10sp"
+            android:background="@drawable/custom_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên sách"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/edtTacGia"
+            android:background="@drawable/custom_edittext"
+            android:layout_marginBottom="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên tác giả"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/edtGiaThue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15sp"
+            android:background="@drawable/custom_edittext"
+            android:hint="Nhập mức giá thuê"
+            android:minHeight="48dp" />
+
+        <LinearLayout
+            android:padding="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnThemSach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+
+                android:backgroundTint="#4FD2E3"
+                android:text="LƯU" />
+
+            <Button
+                android:id="@+id/btnHuySach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:backgroundTint="#D8655C"
+                android:text="HỦY" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
