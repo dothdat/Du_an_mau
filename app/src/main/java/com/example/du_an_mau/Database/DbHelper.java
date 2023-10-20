@@ -17,9 +17,13 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Bảng thủ thư
-        String qNguoiDung = "CREATE TABLE NGUOIDUNG(tendangnhap TEXT PRIMARY KEY,matkhau TEXT)";
+        String qNguoiDung = "CREATE TABLE NGUOIDUNG(" +
+                "maTT text primary key, " +
+                "tenTT text not null, " +
+                "matKhau text not null, " +
+                "chucVu integer)";
         db.execSQL(qNguoiDung);
-        String dNguoiDung = "INSERT INTO NGUOIDUNG VALUES('nam','123'),('trung','456'),('dat','111')";
+        String dNguoiDung = "INSERT INTO NGUOIDUNG VALUES('nam','nam','123',1),('trung','trung','456',1),('dat','dat','111',0)";
         db.execSQL(dNguoiDung);
         // Bảng thành viên
         String tb_ThanhVien= "CREATE TABLE tb_ThanhVien(maTV integer primary key autoincrement, tenTV text not null, sdt text not null, diaChi text not null)";
@@ -32,9 +36,9 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(tb_LoaiSach);
         db.execSQL(data_LoaiSach);
         // Bảng sách
-        String tb_Sach= "CREATE TABLE tb_Sach(maSach integer primary key autoincrement, tenSach text not null, tacGia text not null, giaThue integer not null, maLoai integer REFERENCES tb_LoaiSach(maLoai))";
+        String tb_Sach= "CREATE TABLE tb_Sach(maSach integer primary key autoincrement, tenSach text not null, tacGia text not null, giaThue integer not null, maLoai integer REFERENCES tb_LoaiSach(maLoai), namXB integer not null)";
         db.execSQL(tb_Sach);
-        String data_Sach= "INSERT INTO tb_Sach VALUES (1,'Dế mèn phiêu lưu ký', 'Tô Hoài', 49000, 1),(2,'Đại gia đình keo kiệt', 'Long Vũ', 29000, 2),(3,'Doraemon', 'Fujiko F. Fujio', 39000, 3)";
+        String data_Sach= "INSERT INTO tb_Sach VALUES (1,'Dế mèn phiêu lưu ký', 'Tô Hoài', 49000, 1, 2010),(2,'Đại gia đình keo kiệt', 'Long Vũ', 29000, 2, 1998),(3,'Doraemon', 'Fujiko F. Fujio', 39000, 3, 1993)";
         db.execSQL(data_Sach);
         // Bảng Phiếu Mượn
         String tb_PhieuMuon= "CREATE TABLE tb_PhieuMuon(maPhieuMuon integer primary key autoincrement, maTV integer REFERENCES tb_ThanhVien(maTV), maSach integer REFERENCES tb_Sach(maSach),  ngayMuon text not null, tienThue integer not null , traSach integer not null)";

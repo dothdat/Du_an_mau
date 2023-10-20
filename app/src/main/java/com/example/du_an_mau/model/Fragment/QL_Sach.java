@@ -87,6 +87,7 @@ public class QL_Sach extends Fragment {
         EditText edtGiaThue = view.findViewById(R.id.edtGiaThue);
         Button btnThemSach = view.findViewById(R.id.btnThemSach);
         Button btnHuySach = view.findViewById(R.id.btnHuySach);
+        EditText edtNamXB = view.findViewById(R.id.edtNamXB);
         ArrayList<loaiSach> listLS = new ArrayList<>();
         listLS = lsdao.getDSLoaiSach();
         ArrayList<String> loaiSachArr = new ArrayList<>();
@@ -114,13 +115,13 @@ public class QL_Sach extends Fragment {
                 String tenSach = edtTenSach.getText().toString();
                 String tacGia = edtTacGia.getText().toString();
                 String giaThue = edtGiaThue.getText().toString();
-
+                String namXB = edtNamXB.getText().toString();
                 if (tenSach.isEmpty() || tacGia.length()==0 || tacGia.length() == 0) {
                     Toast.makeText(getContext(),"Nhập thông tin đầy đủ!",Toast.LENGTH_LONG).show();
-                } else if (!giaThue.matches("\\d+")){
+                } else if ((!giaThue.matches("\\d+"))||((!namXB.matches("\\d+")))){
                     Toast.makeText(getContext(), "Giá sai định dạng!", Toast.LENGTH_SHORT).show();
                 } else {
-                    boolean check = sach_dao.insert(tenSach,tacGia, Integer.parseInt(giaThue),index);
+                    boolean check = sach_dao.insert(tenSach,tacGia, Integer.parseInt(giaThue),index,Integer.parseInt(namXB));
                     if (check) {
                         Toast.makeText(getContext(),"Thêm thành công",Toast.LENGTH_LONG).show();
                         loadData();

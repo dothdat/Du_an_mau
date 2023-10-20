@@ -39,10 +39,13 @@ public class Dang_nhap extends AppCompatActivity {
                 String user=txtTaiKhoan.getText().toString();
                 String pass=txtMatKhau.getText().toString();
 
-                boolean check=thuthu_dao.CheckLogin(user,pass);
+                boolean check=thuthu_dao.checklogin(user,pass);
                 if(check){
+                    Intent intent = new Intent(Dang_nhap.this,MainActivity.class);
                     Toast.makeText(Dang_nhap.this,"Đăng nhập thành công",Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(Dang_nhap.this,MainActivity.class));
+                    intent.putExtra("maTT",user);
+                    startActivity(intent);
+
                 }else {
                     Toast.makeText(Dang_nhap.this,"Đăng nhập thất bại. Vui lòng kiểm tra lại",Toast.LENGTH_LONG).show();
                 }

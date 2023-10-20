@@ -35,7 +35,8 @@ public class Sach_Dao {
                             cursor.getString(1),
                             cursor.getString(2),
                             cursor.getInt(3),
-                            cursor.getInt(4)));
+                            cursor.getInt(4),
+                            cursor.getInt(5)));
                 } while (cursor.moveToNext());
             }while (cursor.moveToNext()) ;
             database.setTransactionSuccessful();
@@ -48,13 +49,14 @@ public class Sach_Dao {
         return list;
     }
     //Thêm sách
-    public boolean insert(String tenSach,String tacGia,int giaThue, int loaiSach) {
+    public boolean insert(String tenSach,String tacGia,int giaThue, int loaiSach, int namXB) {
         SQLiteDatabase db = db_Sach.getWritableDatabase(); //getWrite.. ghi dữ liệu vào database
         ContentValues value = new ContentValues(); // đưa dữ lệu vào database
         value.put("tenSach", tenSach);
         value.put("tacGia", tacGia);
         value.put("giaThue", giaThue);
         value.put("maLoai", loaiSach);
+        value.put("namXB", namXB);
         long check = db.insert("tb_Sach", null, value);
         return check != -1;
     }
@@ -66,6 +68,7 @@ public class Sach_Dao {
         value.put("tenSach", sach.getTenSach());
         value.put("tacGia", sach.getTacGia());
         value.put("giaThue", sach.getGiaThue());
+        value.put("namXB", sach.getNamXB());
         int check = database.update("tb_Sach", value, "maSach = ?",
                 new String[]{String.valueOf(sach.getMaSach())});
         return check != 0;

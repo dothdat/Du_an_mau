@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.du_an_mau.Database.DbHelper;
 import com.example.du_an_mau.model.Fragment.PhieuMuon;
+import com.example.du_an_mau.model.top10;
 
 import java.util.ArrayList;
 
@@ -143,6 +144,27 @@ public class phieuMuon_Dao {
             Log.i(TAG, "Lỗi" + e);
         }
         return list.get(0);
+    }
+    public ArrayList<top10> getTop() {
+        ArrayList<top10> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        try {
+            Cursor cursor =db.rawQuery("SELECT maSach, count(maSach) AS soLuong FROM tb_PhieuMuon GROUP BY maSach ORDER BY soLuong DESC LIMIT 10", null);
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    top10 top10 = new top10();
+                    String tenS = daoSach.getTenS(cursor.getInt(0));
+                    top10.setTenSach(tenS);
+                    top10.setSoLuong(cursor.getInt(1));
+                    list.add(top10);
+                    cursor.moveToNext();
+                }
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "Lỗi" + e);
+        }
+        return list;
     }
 
 }

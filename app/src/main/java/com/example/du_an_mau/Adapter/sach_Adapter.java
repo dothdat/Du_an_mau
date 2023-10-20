@@ -1,5 +1,6 @@
 package com.example.du_an_mau.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -47,17 +48,19 @@ public class sach_Adapter extends RecyclerView.Adapter<sach_Adapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.txtMaSach.setText("ID: "+list.get(position).getMaSach());
         holder.txtLoaiSach.setText("Loại Sách: "+ ls_dao.getTenLoai(list.get(position).getMaLoai()));
         holder.txtTenSach.setText("Tên sách: "+list.get(position).getTenSach());
         holder.txtTacGia.setText("Tác giả: "+list.get(position).getTacGia());
         holder.txtGiaThue.setText("Giá thuê: "+String.valueOf(list.get(position).getGiaThue()));
-
+        holder.txtNamXB.setText("Năm XB:" + String.valueOf(list.get(position).getNamXB()));
         holder.txtSuaSach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDiaLogUpdate(list.get(holder.getAdapterPosition()));
+
+                showDiaLogUpdate(list.get(position));
+//                list.get(position);
             }
         });
         holder.txtGiaThue.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +78,7 @@ public class sach_Adapter extends RecyclerView.Adapter<sach_Adapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txtMaSach, txtTenSach, txtTacGia, txtGiaThue, txtXoaSach, txtSuaSach ,txtLoaiSach;
+        TextView txtMaSach, txtTenSach, txtTacGia, txtGiaThue, txtXoaSach, txtSuaSach ,txtLoaiSach, txtNamXB;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,7 +89,7 @@ public class sach_Adapter extends RecyclerView.Adapter<sach_Adapter.ViewHolder>{
             txtGiaThue= itemView.findViewById(R.id.txtGiaThue);
             txtSuaSach= itemView.findViewById(R.id.txtSuaSach);
             txtXoaSach= itemView.findViewById(R.id.txtXoaSach);
-
+            txtNamXB = itemView.findViewById(R.id.txtNamXB);
         }
     }
     public void showDiaLogUpdate(Sach sach) {
@@ -99,7 +102,7 @@ public class sach_Adapter extends RecyclerView.Adapter<sach_Adapter.ViewHolder>{
         alertDialog.show();
         alertDialog.setCancelable(false);
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
+        EditText edtNamXB = view.findViewById(R.id.edtNamXB);
         EditText edtSuaTenSach = view.findViewById(R.id.edtTenSach);
         EditText edtSuaTacGia = view.findViewById(R.id.edtTacGia);
         EditText edtSuaGiaThue = view.findViewById(R.id.edtGiaThue);
@@ -119,14 +122,18 @@ public class sach_Adapter extends RecyclerView.Adapter<sach_Adapter.ViewHolder>{
                 String tenSach = edtSuaTenSach.getText().toString();
                 String tacGia = edtSuaTacGia.getText().toString();
                 String giaThue = edtSuaGiaThue.getText().toString();
-
-                if (tenSach.isEmpty() || tacGia.length()==0 || tacGia.length() == 0) {
+                String namXB = edtNamXB.getText().toString();
+                if (tenSach.isEmpty() || tacGia.length()==0 || tacGia.length() == 0 || namXB.isEmpty()) {
                     Toast.makeText(context,"Nhập thông tin đầy đủ!",Toast.LENGTH_LONG).show();
-                } else if (!giaThue.matches("\\d+")){
+                } else if ((!giaThue.matches("\\d+")) ||(!namXB.matches("\\d+")) ){
                     Toast.makeText(context, "Giá sai định dạng!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Sach sachUpdate = new Sach(sach.getMaSach(),tenSach,tacGia,Integer.parseInt(giaThue),Integer.parseInt(tenSach));
-                    boolean check = sach_dao.suaSach(sachUpdate);
+                    sach.setTenSach(tenSach);
+                    sach.setTacGia(tacGia);
+                    sach.setGiaThue(Integer.parseInt(giaThue));
+                    sach.setNamXB(Integer.parseInt(namXB));
+//                    Sach sachUpdate = new Sach(sach.getMaSach(),tenSach,tacGia,Integer.parseInt(giaThue),Integer.parseInt(tenSach));
+                    boolean check = sach_dao.suaSach(sach);
                     if (check) {
                         Toast.makeText(context,"Sửa thành công",Toast.LENGTH_LONG).show();
                         loadDS();

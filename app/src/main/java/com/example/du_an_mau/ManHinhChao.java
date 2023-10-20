@@ -15,7 +15,7 @@ public class ManHinhChao extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(ManHinhChao.this, MainActivity.class));
+                startActivity(new Intent(ManHinhChao.this, Dang_nhap.class));
             }
         },3000);
     }

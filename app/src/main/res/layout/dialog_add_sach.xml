@@ -63,6 +63,14 @@
             android:background="@drawable/custom_edittext"
             android:hint="Nhập mức giá thuê"
             android:minHeight="48dp" />
+        <EditText
+            android:id="@+id/edtNamXB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15sp"
+            android:background="@drawable/custom_edittext"
+            android:hint="Nhập năm XB: "
+            android:minHeight="48dp" />
 
         <LinearLayout
             android:padding="10sp"
